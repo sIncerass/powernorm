@@ -1,10 +1,10 @@
 # Introduction
 
-Here we present the instructions to reproduce the machine translation results from our ICML 2020 paper [PowerNorm: Rethinking Batch Normalization in Transformers](https://arxiv.org/pdf/2003.07845.pdf), [video](https://drive.google.com/file/d/1M8spzzqNHAgNbdRcOJMKpbJ7GWj2y5mh/view?usp=sharing). The PowerNorm is directly implemented at [here](https://github.com/amirgholami/powernorm/blob/master/fairseq/modules/norms/mask_powernorm.py). 
+Here we present the instructions to reproduce the machine translation results from our ICML 2020 paper [PowerNorm: Rethinking Batch Normalization in Transformers](https://arxiv.org/pdf/2003.07845.pdf), [video](https://drive.google.com/file/d/1M8spzzqNHAgNbdRcOJMKpbJ7GWj2y5mh/view?usp=sharing). The PowerNorm is implemented [here](https://github.com/amirgholami/powernorm/blob/master/fairseq/modules/norms/mask_powernorm.py). 
 
-![](https://github.com/sIncerass/powernorm/imgs/LN_vis.pdf "LN") ![](https://github.com/sIncerass/powernorm/imgs/PN_vis.pdf "PN/BN")
+!["LN"](https://github.com/sIncerass/powernorm/blob/master/imgs/LN_vis.pdf) !["PN/BN"](https://github.com/sIncerass/powernorm/blob/master/imgs/PN_vis.pdf)
 
-
+Here is the illustration plot of layer normalization (left) and batch/power normalization (right). The entries colored in blue show the components used for calculating the statistics.
 
 The codes are based on open-sourced [fairseq](https://github.com/pytorch/fairseq) (v0.8.0). Follow [this link](https://fairseq.readthedocs.io/) for a detailed document about the original code base and [this link](https://github.com/pytorch/fairseq/tree/v0.8.0/examples/translation) for some examples of training baseline Transformer models for machine translation with fairseq.
 
@@ -20,7 +20,7 @@ Please follow the instructions here: https://github.com/pytorch/pytorch#installa
 
 After PyTorch is installed, you can install fairseq with:
 ```
-pip install -r requirements.txt
+conda env create --file env.yml
 python setup.py build develop
 ```
 
@@ -34,6 +34,8 @@ The scripts for training and testing PowerNorm is located at `trans-scripts` fol
 ./trans-scripts/train/train-iwslt14.sh encoder_norm_self_attn encoder_norm_ffn decoder_norm_self_attn decoder_norm_ffn
 example:
 $ CUDA_VISIBLE_DEVICES=0 ./trans-scripts/train/train-iwslt14.sh power power layer layer
+$ CUDA_VISIBLE_DEVICES=0 ./trans-scripts/train/train-iwslt14.sh batch batch layer layer
+$ CUDA_VISIBLE_DEVICES=0 ./trans-scripts/train/train-iwslt14.sh layer layer layer layer
 
 ## To test a checkpoint
 $ CUDA_VISIBLE_DEVICES=0 ./trans-scripts/test/test-iwslt14.sh output_directory checkpoint_best.pt
@@ -60,8 +62,10 @@ Example usage:
 ```
 # IWSLT14 De-En
 ## at trans-net/translation/, after download the tbz2 file
-$ tar xf iwslt14-deen-pretrained-model.tbz2
-$ CUDA_VISIBLE_DEVICES=0 ./trans-scripts/test/test-iwslt14.sh output_directory checkpoint_pretrained.pt
+$ tar xf powernorm_pretrain_iwslt.tbz2 
+$ OUTPUT_DIR=iwslt14_de_en/powernorm_pretrain_iwslt
+$ CKPT=averaged_model.pt
+$ CUDA_VISIBLE_DEVICES=0 ./trans-scripts/test/test-iwslt14.sh $OUTPUT_DIR $CKPT
 ...
 | Generate test with beam=5: BLEU4 = 35.87, 69.5/44.2/30.1/20.9 (BP=0.961, ratio=0.962, syslen=126196, reflen=131156)
 ```
@@ -69,7 +73,6 @@ $ CUDA_VISIBLE_DEVICES=0 ./trans-scripts/test/test-iwslt14.sh output_directory c
 ## Citation
 PowerNorm has been developed as part of the following paper. We appreciate it if you would please cite the following paper if you found the library useful for your work:
 ```
-
 @inproceedings{shen2020powernorm,
   title={PowerNorm: Rethinking Batch Normalization in Transformers},
   author={Shen, Sheng and Yao, Zhewei and Gholami, Amir and Mahoney, Michael and Keutzer, Kurt},
