@@ -2,9 +2,9 @@
 
 Here we present the instructions to reproduce the machine translation results from our ICML 2020 paper [PowerNorm: Rethinking Batch Normalization in Transformers](https://arxiv.org/pdf/2003.07845.pdf), [video](https://drive.google.com/file/d/1M8spzzqNHAgNbdRcOJMKpbJ7GWj2y5mh/view?usp=sharing). The PowerNorm is implemented [here](https://github.com/amirgholami/powernorm/blob/master/fairseq/modules/norms/mask_powernorm.py). 
 
-!["LN"](https://github.com/sIncerass/powernorm/blob/master/imgs/LN_vis.pdf) !["PN/BN"](https://github.com/sIncerass/powernorm/blob/master/imgs/PN_vis.pdf)
+![](https://github.com/sIncerass/powernorm/blob/master/imgs/PN_LN_vis.png)
 
-Here is the illustration plot of layer normalization (left) and batch/power normalization (right). The entries colored in blue show the components used for calculating the statistics.
+Here is the illustration plot of batch/power normalization (left) and layer normalization (right). The entries colored in blue show the components used for calculating the statistics.
 
 The codes are based on open-sourced [fairseq](https://github.com/pytorch/fairseq) (v0.8.0). Follow [this link](https://fairseq.readthedocs.io/) for a detailed document about the original code base and [this link](https://github.com/pytorch/fairseq/tree/v0.8.0/examples/translation) for some examples of training baseline Transformer models for machine translation with fairseq.
 
@@ -16,7 +16,7 @@ We also provide [pre-trained models](#pre-trained-models) for several benchmark 
 * Python version 3.7
 
 The fairseq library we use requires PyTorch version >= 1.2.0.
-Please follow the instructions here: https://github.com/pytorch/pytorch#installation.
+Please follow the instructions [here](https://github.com/pytorch/pytorch#installation).
 
 After PyTorch is installed, you can install fairseq with:
 ```
