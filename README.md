@@ -1,6 +1,6 @@
 # Introduction
 
-Here we present the instructions to reproduce the machine translation results from our ICML 2020 paper [PowerNorm: Rethinking Batch Normalization in Transformers](https://arxiv.org/pdf/2003.07845.pdf), [video](https://drive.google.com/file/d/1M8spzzqNHAgNbdRcOJMKpbJ7GWj2y5mh/view?usp=sharing). The PowerNorm is implemented [here](https://github.com/amirgholami/powernorm/blob/master/fairseq/modules/norms/mask_powernorm.py). 
+Here we present the instructions to reproduce the machine translation results from our ICML 2020 paper [PowerNorm: Rethinking Batch Normalization in Transformers](https://arxiv.org/pdf/2003.07845.pdf), [video](https://drive.google.com/file/d/1M8spzzqNHAgNbdRcOJMKpbJ7GWj2y5mh/view?usp=sharing). The PowerNorm is implemented [here](https://github.com/sIncerass/powernorm/blob/master/fairseq/modules/norms/mask_powernorm.py). 
 
 ![](https://github.com/sIncerass/powernorm/blob/master/imgs/PN_LN_vis.png)
 
